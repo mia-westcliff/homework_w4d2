@@ -1,87 +1,39 @@
-/* Random Codes 
+/* Random Codes */
+
+var code = '';
+var getCode = '';
+var btnvalue;
+var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$';
+
 function generateCode() {
-    var code = '';
-    var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$';
     for (let i = 1; i <= 8; i++) {
         var charIndex = Math.floor(Math.random() * str.length);
         code += str.charAt(charIndex);
     }
     return code;
 }
-
-// Ensure that the DOM is fully loaded before running JavaScript
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('codes').innerHTML = generateCode();
-    disableButton();
-});
-
-function disableButton() {
-    document.getElementById('submit').disabled = true;
-}
-
-var generatedCode = generateCode(); // Generate the initial random code
-
-        // Function to generate a random code
-        function generateCode() {
-            var code = '';
-            var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$';
-            for (let i = 1; i <= 8; i++) {
-                var charIndex = Math.floor(Math.random() * str.length);
-                code += str.charAt(charIndex);
-            }
-            return code;
-        }
-
-        // Function to enable/disable the "submit" button based on input value
-        function toggleSubmitButton() {
-            var input = document.getElementById('randomcodeInput');
-            var submitButton = document.getElementById('submit');
-
-            if (input.value === generatedCode) {
-                submitButton.disabled = false;
-            } else {
-                submitButton.disabled = true;
-            }
-        }
-
-        // Add an input event listener to the "randomcodeInput" field
-        document.getElementById('randomcodeInput').addEventListener('input', toggleSubmitButton);
-
-        // Initialize the displayed random code
-        document.getElementById('codes').textContent = generatedCode;
-
-        // Disable the "submit" button initially
-        toggleSubmitButton();
-*/
-
-// script.js
 
 var generatedCode = generateCode();
+document.getElementById("codes").innerHTML = generateCode();
 
-function generateCode() {
-    var code = '';
-    var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$';
-    for (let i = 1; i <= 8; i++) {
-        var charIndex = Math.floor(Math.random() * str.length);
-        code += str.charAt(charIndex);
-    }
-    return code;
-}
-
-function toggleSubmitButton() {
-    var input = document.getElementById('randomcodeInput');
-    var submitButton = document.getElementById('submit');
-
-    if (input.value === generatedCode) {
-        submitButton.disabled = false;
+function disableButton(btnvalue) {
+    document.getElementById("submit").disabled = btnvalue;
+    if(btnvalue == true) {
+        document.getElementById("submit").style.backgroundColor = "rgba(73, 119, 209, 0.3)";
+        document.getElementById("submit").style.color = "rgba(255, 255, 255, 0.5)";
     } else {
-        submitButton.disabled = true;
+        document.getElementById("submit").style.backgroundColor = "rgba(73, 119, 209, 1)";
+        document.getElementById("submit").style.color = "rgba(255, 255, 255, 1)";
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('codes').textContent = generatedCode;
-    toggleSubmitButton();
-
-    document.getElementById('randomcodeInput').addEventListener('input', toggleSubmitButton);
-});
+var codebox = document.getElementById("codeentered");
+codebox.addEventListener("input", evaluateCode);
+function evaluateCode() {
+    getCode = document.getElementById("codeentered").value;
+    var charset1 = getCode.trim();
+    var charset2 = code.trim();
+    if(charset1.length == charset2.length && charset1 == charset2) {
+        disableButton(false);
+    }
+}
